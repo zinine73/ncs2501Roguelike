@@ -56,10 +56,15 @@ public class PlayerController : MonoBehaviour
             if (cellData != null && cellData.Passable)
             {
                 GameManager.Instance.TurnManager.Tick();
-                MoveTo(newCellTarget);
 
-                if (cellData.ContainedObject != null)
+                if (cellData.ContainedObject == null)
                 {
+                    MoveTo(newCellTarget);
+                }
+                else if (cellData.ContainedObject.PlayerWantsToEnter())
+                {
+                    MoveTo(newCellTarget);
+                    // 플레이어를 먼저 셀로 이동시킨 후 호출
                     cellData.ContainedObject.PlayerEntered();
                 }
             }

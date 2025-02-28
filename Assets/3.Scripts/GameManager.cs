@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_FoodLabel = UIDoc.rootVisualElement.Q<Label>("FoodLabel");
-        m_FoodLabel.text = $"Food : {m_FoodAmount}";
+        //m_FoodLabel.text = $"Food : {m_FoodAmount}";
 
         TurnManager = new TurnManager();
         TurnManager.OnTick += OnTurnHappen;
@@ -42,12 +42,12 @@ public class GameManager : MonoBehaviour
 
     void OnTurnHappen()
     {
-        m_FoodAmount--;
-        m_FoodLabel.text = $"Food : {m_FoodAmount:000}";
+        ChangeFood(-1);
     }
 
-    void Update()
+    public void ChangeFood(int amount)
     {
-        
+        m_FoodAmount += amount;
+        m_FoodLabel.text = $"Food : {m_FoodAmount:000}";
     }
 }
