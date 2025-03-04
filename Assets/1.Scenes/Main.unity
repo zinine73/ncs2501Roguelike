@@ -204,6 +204,7 @@ MonoBehaviour:
   - {fileID: 4943983969333448041, guid: 750bf0adecec17444915c0ab3b7676dc, type: 3}
   - {fileID: 8928740495352532908, guid: d4d52cb3bb0a12c4cbefdcc1234b939a, type: 3}
   - {fileID: 7624513889930134851, guid: 220092e83c1a559418f2619d90c6a1a1, type: 3}
+  ExitPrefab: {fileID: 7192593622528921586, guid: 6eca87a19ec9a2648a99a69535756bd4, type: 3}
   minFood: 3
   maxFood: 6
 --- !u!1 &493901246
