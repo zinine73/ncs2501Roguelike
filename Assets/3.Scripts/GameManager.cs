@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public TurnManager TurnManager { get; private set; }
 
     #region private
-    private const int START_FOOD_AMOUNT = 10;
+    private const int START_FOOD_AMOUNT = 100;
     private const string GOS1 = "Game Over!\n\nYou traveled\nthrough";
     private const string GOS2 = "levels\n\n(Press Enter to\nstart New game)";
     private int m_FoodAmount;
