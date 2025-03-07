@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     // property
     public TurnManager TurnManager { get; private set; }
+    public int Level { 
+        get { return m_CurrentLevel; }
+        private set{}
+    }
 
     #region private
     private const int START_FOOD_AMOUNT = 100;
@@ -70,11 +74,10 @@ public class GameManager : MonoBehaviour
 
     public void NewLevel()
     {
+        m_CurrentLevel++;
         BoardManager.Clean();
         BoardManager.Init();
         PlayerController.Spawn(BoardManager, new Vector2Int(1, 1));
-
-        m_CurrentLevel++;
     }
 
     void OnTurnHappen()

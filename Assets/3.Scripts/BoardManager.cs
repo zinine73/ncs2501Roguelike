@@ -28,6 +28,10 @@ public class BoardManager : MonoBehaviour
     public EnemyObject[] EnemyPrefab;
     public int minFood;
     public int maxFood;
+    public int minWall;
+    public int maxWall;
+    public int minEnemy;
+    public int maxEnemy;
 
     public void Init()
     {
@@ -67,9 +71,31 @@ public class BoardManager : MonoBehaviour
         AddObject(Instantiate(ExitPrefab), endCoord);
         m_EmptyCellsList.Remove(endCoord);
 
+        // 레벨에 따른 오브젝트 수 조정
+        AdjustObjectCount(true, 3, ref minWall, ref maxWall);
+        AdjustObjectCount(false, 4, ref minFood, ref maxFood);
+        AdjustObjectCount(true, 5, ref minEnemy, ref maxEnemy);
+
         GenerateWall();
         GenerateFood();
         GenerateEnemy();
+    }
+
+    private void AdjustObjectCount(bool isAdd, int ratio, ref int min, ref int max)
+    {
+        int val = GameManager.Instance.Level / ratio;
+        int tmp;
+        if (isAdd)
+        {
+            tmp = min + val;
+            min = (tmp > max) ? max : tmp;
+            //max += min;
+        }
+        else
+        {
+            tmp = max - val;
+            max = (tmp < min) ? min : tmp;
+        }
     }
 
     public void Clean()
@@ -133,7 +159,7 @@ public class BoardManager : MonoBehaviour
 
     private void GenerateWall()
     {
-        int wallCount = Random.Range(6, 10);
+        int wallCount = Random.Range(minWall, maxWall + 1);
         for (int i = 0; i < wallCount; i++)
         {
             int randomIndex = Random.Range(0, m_EmptyCellsList.Count);
@@ -148,7 +174,7 @@ public class BoardManager : MonoBehaviour
 
     private void GenerateEnemy()
     {
-        int enemyCount = Random.Range(1, 3);
+        int enemyCount = Random.Range(minEnemy, maxEnemy + 1);
         for (int i = 0; i < enemyCount; i++)
         {
             int randomIndex = Random.Range(0, m_EmptyCellsList.Count);
