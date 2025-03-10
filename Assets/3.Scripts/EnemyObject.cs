@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyObject : CellObject
 {
     public int Health = 3;
+    public AudioClip Clip;
 
     private int m_CurrentHealth;
 
@@ -68,6 +69,7 @@ public class EnemyObject : CellObject
         if ((xDist == 0 && absYDist == 1) || (yDist == 0 && absXDist == 1))
         {
             GameManager.Instance.ChangeFood(-3);
+            GameManager.Instance.PlaySound(Clip);
         }
         else
         {

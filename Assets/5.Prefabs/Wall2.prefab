@@ -47,3 +47,5 @@ MonoBehaviour:
   ObstacleTile: {fileID: 11400000, guid: 87af90af0619ca7418dd38744c44b46a, type: 2}
   HP1Tile: {fileID: 11400000, guid: 3472456621cd3864f858d5cb4ff4947c, type: 2}
   MaxHealth: 4
+  Clip: {fileID: 8300000, guid: 4c2332bc8245b474dad63074059bb755, type: 3}
+  Clip2: {fileID: 8300000, guid: f6aaac83be9e0493493aace800b76619, type: 3}

@@ -8,6 +8,8 @@ public class WallObject : CellObject
     public Tile ObstacleTile;
     public Tile HP1Tile;
     public int MaxHealth = 3;
+    public AudioClip Clip;
+    public AudioClip Clip2;
 
     private int m_HealthPoint;
     private Tile m_OriginalTile;
@@ -35,10 +37,12 @@ public class WallObject : CellObject
             {
                 GameManager.Instance.BoardManager.SetCellTile(m_Cell, HP1Tile);
             }
+            GameManager.Instance.PlaySound(Clip);
             return false;
         }
         GameManager.Instance.BoardManager.SetCellTile(m_Cell, m_OriginalTile);
         Destroy(gameObject);
+        GameManager.Instance.PlaySound(Clip2);
         return true;
     }
 }

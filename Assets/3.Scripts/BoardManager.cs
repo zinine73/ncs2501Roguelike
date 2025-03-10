@@ -72,30 +72,26 @@ public class BoardManager : MonoBehaviour
         m_EmptyCellsList.Remove(endCoord);
 
         // 레벨에 따른 오브젝트 수 조정
-        AdjustObjectCount(true, 3, ref minWall, ref maxWall);
-        AdjustObjectCount(false, 4, ref minFood, ref maxFood);
-        AdjustObjectCount(true, 5, ref minEnemy, ref maxEnemy);
-
-        GenerateWall();
-        GenerateFood();
-        GenerateEnemy();
+        GenerateWall(AdjustObjectCount(true, 3, minWall, maxWall));
+        GenerateFood(AdjustObjectCount(false, 4, minFood, maxFood));
+        GenerateEnemy(AdjustObjectCount(true, 5, minEnemy, maxEnemy));
     }
 
-    private void AdjustObjectCount(bool isAdd, int ratio, ref int min, ref int max)
+    private int AdjustObjectCount(bool isAdd, int ratio, int min, int max)
     {
         int val = GameManager.Instance.Level / ratio;
-        int tmp;
+        int tmp, rv;
         if (isAdd)
         {
             tmp = min + val;
-            min = (tmp > max) ? max : tmp;
-            //max += min;
+            rv = (tmp > max) ? max : tmp;
         }
         else
         {
             tmp = max - val;
-            max = (tmp < min) ? min : tmp;
+            rv = (tmp < min) ? min : tmp;
         }
+        return rv;
     }
 
     public void Clean()
@@ -142,9 +138,9 @@ public class BoardManager : MonoBehaviour
         return m_BoardData[cellIndex.x, cellIndex.y];
     }
 
-    private void GenerateFood()
+    private void GenerateFood(int val)
     {
-        int foodCount = Random.Range(minFood, maxFood + 1);
+        int foodCount = Random.Range(val, val + 2);
         for (int i = 0; i < foodCount; i++)
         {
             int randomIndex = Random.Range(0, m_EmptyCellsList.Count);
@@ -157,9 +153,9 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private void GenerateWall()
+    private void GenerateWall(int val)
     {
-        int wallCount = Random.Range(minWall, maxWall + 1);
+        int wallCount = Random.Range(val, val + 2);
         for (int i = 0; i < wallCount; i++)
         {
             int randomIndex = Random.Range(0, m_EmptyCellsList.Count);
@@ -172,9 +168,9 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private void GenerateEnemy()
+    private void GenerateEnemy(int val)
     {
-        int enemyCount = Random.Range(minEnemy, maxEnemy + 1);
+        int enemyCount = Random.Range(val, val + 2);
         for (int i = 0; i < enemyCount; i++)
         {
             int randomIndex = Random.Range(0, m_EmptyCellsList.Count);

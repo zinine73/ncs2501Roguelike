@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool m_IsMoving;
     private Vector3 m_MoveTarget;
     private Animator m_Animator;
+    private Vector2Int newCellTarget;
+    private bool hasMoved;
 
     //public Vector2Int GetPlayerPosition()
     //{
@@ -98,30 +98,33 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Vector2Int newCellTarget = m_CellPosition;
-        bool hasMoved = false;
+        newCellTarget = m_CellPosition;
+        hasMoved = false;
 
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            newCellTarget.y++;
-            hasMoved = true;
+            MoveSkip();
+        }
+        else if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            MoveUp();
         }
         else if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
-            newCellTarget.y--;
-            hasMoved = true;
+            MoveDown();
         }
         else if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
-            newCellTarget.x++;
-            hasMoved = true;
+            MoveRight();
         }
         else if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {
-            newCellTarget.x--;
-            hasMoved = true;
+            MoveLeft();
         }
+    }
 
+    private void UpdatePlayer()
+    {
         if (hasMoved)
         {
             //셀이 움직일 수 있으면 움직여라
@@ -148,5 +151,50 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void MoveSkip()
+    {
+        if (m_IsGameOver)
+        {
+            GameManager.Instance.StartNewGame();
+            return;
+        }
+        
+        if (m_IsMoving) return;
+        hasMoved = true;
+        UpdatePlayer();
+    }
+
+    public void MoveUp()
+    {
+        if (m_IsMoving) return;
+        newCellTarget.y++;
+        hasMoved = true;
+        UpdatePlayer();
+    }
+
+    public void MoveDown()
+    {
+        if (m_IsMoving) return;
+        newCellTarget.y--;
+        hasMoved = true;
+        UpdatePlayer();
+    }
+
+    public void MoveLeft()
+    {
+        if (m_IsMoving) return;
+        newCellTarget.x--;
+        hasMoved = true;
+        UpdatePlayer();
+    }
+
+    public void MoveRight()
+    {
+        if (m_IsMoving) return;
+        newCellTarget.x++;
+        hasMoved = true;
+        UpdatePlayer();
     }
 }
